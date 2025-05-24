@@ -1,0 +1,16 @@
+/* Base styles for the app */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Tailwind style customizations */
+:root {
+  --color-primary: #3B82F6;
+  --color-secondary: #10B981;
+  --color-dark: #1F2937;
+  --color-light: #F3F4F6;
+}
+
+/* For smoother transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 200ms;
+}

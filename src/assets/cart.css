@@ -1,0 +1,22 @@
+/* Custom styles for the cart components */
+
+/* Ticket card hover effects */
+.ticket-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Amenity icons */
+.amenity-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #10B981; /* Using secondary color from Tailwind config */
+}
+
+/* Add responsive styles for tournament groups */
+@media (max-width: 640px) {
+  .tournament-group .flex-col {
+    margin-bottom: 1rem;
+  }
+}
