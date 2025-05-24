@@ -343,182 +343,167 @@ const BookingForm = ({ cartData, onBack }) => {
         {/* Traveler Details Section (only if not main traveler) */}
         {!isMainTraveler && (
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">Fill in the details of the traveler(s)</h2>
-            
-            {ticketInfo.map((ticket, index) => (
-              <div key={index} className="mb-6">
-                <h3 className="font-semibold text-gray-800 mb-2">Traveler {index + 1}</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  {ticket.matchName} - {ticket.category} @ ${ticket.price.toFixed(2)}/ticket
-                </p>
-                
-                <div className="bg-gray-50 p-6 rounded-lg mb-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor={`traveler-${index}-firstName`} className="block text-sm font-medium text-gray-700 mb-1">
-                        First Name <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-firstName`} 
-                        name="firstName"
-                        value={travelers[index]?.firstName || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="First name"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor={`traveler-${index}-lastName`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Last Name <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-lastName`} 
-                        name="lastName"
-                        value={travelers[index]?.lastName || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Last name"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor={`traveler-${index}-nationality`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Nationality <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-nationality`} 
-                        name="nationality"
-                        value={travelers[index]?.nationality || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Nationality A"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor={`traveler-${index}-dob`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Date of Birth(Optional)
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-dob`} 
-                        name="dateOfBirth"
-                        value={travelers[index]?.dateOfBirth || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="dd-mm-yyyy"
-                        className="w-full p-2 border border-gray-300 rounded"
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Additional fields for traveler's address */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor={`traveler-${index}-addressLine1`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Address line 1 <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-addressLine1`} 
-                        name="addressLine1"
-                        value={travelers[index]?.addressLine1 || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Address"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor={`traveler-${index}-addressLine2`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Address line 2
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-addressLine2`} 
-                        name="addressLine2"
-                        value={travelers[index]?.addressLine2 || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Address line 2"
-                        className="w-full p-2 border border-gray-300 rounded"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor={`traveler-${index}-city`} className="block text-sm font-medium text-gray-700 mb-1">
-                        City <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-city`} 
-                        name="city"
-                        value={travelers[index]?.city || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="City"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor={`traveler-${index}-state`} className="block text-sm font-medium text-gray-700 mb-1">
-                        State <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-state`} 
-                        name="state"
-                        value={travelers[index]?.state || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="State"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor={`traveler-${index}-country`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Country <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-country`} 
-                        name="country"
-                        value={travelers[index]?.country || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Country"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor={`traveler-${index}-zipCode`} className="block text-sm font-medium text-gray-700 mb-1">
-                        Zip Code <span className="text-red-500">*</span>
-                      </label>
-                      <input 
-                        type="text" 
-                        id={`traveler-${index}-zipCode`} 
-                        name="zipCode"
-                        value={travelers[index]?.zipCode || ''}
-                        onChange={(e) => handleTravelerChange(index, e)}
-                        placeholder="Zip Code"
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                      />
-                    </div>
-                  </div>
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">Fill in the details of the traveler</h2>
+            <div className="bg-gray-50 p-6 rounded-lg mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor={`traveler-firstName`} className="block text-sm font-medium text-gray-700 mb-1">
+                    First Name <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-firstName`} 
+                    name="firstName"
+                    value={travelers[0]?.firstName || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="First name"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`traveler-lastName`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Last Name <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-lastName`} 
+                    name="lastName"
+                    value={travelers[0]?.lastName || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Last name"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
                 </div>
               </div>
-            ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor={`traveler-nationality`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Nationality <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-nationality`} 
+                    name="nationality"
+                    value={travelers[0]?.nationality || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Nationality"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`traveler-dob`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Date of Birth
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-dob`} 
+                    name="dateOfBirth"
+                    value={travelers[0]?.dateOfBirth || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="dd-mm-yyyy"
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor={`traveler-addressLine1`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Address line 1 <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-addressLine1`} 
+                    name="addressLine1"
+                    value={travelers[0]?.addressLine1 || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Address"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`traveler-addressLine2`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Address line 2
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-addressLine2`} 
+                    name="addressLine2"
+                    value={travelers[0]?.addressLine2 || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Address line 2"
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor={`traveler-city`} className="block text-sm font-medium text-gray-700 mb-1">
+                    City <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-city`} 
+                    name="city"
+                    value={travelers[0]?.city || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="City"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`traveler-state`} className="block text-sm font-medium text-gray-700 mb-1">
+                    State <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-state`} 
+                    name="state"
+                    value={travelers[0]?.state || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="State"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor={`traveler-country`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Country <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-country`} 
+                    name="country"
+                    value={travelers[0]?.country || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Country"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`traveler-zipCode`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Zip Code <span className="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id={`traveler-zipCode`} 
+                    name="zipCode"
+                    value={travelers[0]?.zipCode || ''}
+                    onChange={(e) => handleTravelerChange(0, e)}
+                    placeholder="Zip Code"
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         )}
         

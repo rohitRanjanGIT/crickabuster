@@ -60,34 +60,25 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
               <span className="text-lg font-bold text-blue-600">${total.toFixed(2)}</span>
             </div>
           </div>
-        </div>        {/* Coupon/Voucher Code Section (only visible on step 2) */}
-        {currentStep === 2 && (
-          <div className="mt-6">
-            <h3 className="font-semibold text-gray-800 mb-2">Do you have a coupon code or voucher code?</h3>
-            <div className="flex">
-              <input
-                type="text"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
-                placeholder="e.g. FTKJH99T39BZ"
-                className="flex-grow p-2 border border-gray-300 rounded-l"
-              />
-              <button
-                className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
-                onClick={() => setIsApplyingCoupon(true)}
-              >
-                Apply Code
-              </button>
-            </div>
-            <div className="text-xs text-gray-500 mt-2">
-              <p>Information:</p>
-              <ul className="list-disc list-inside pl-1">
-                <li>You can use multiple vouchers and/or one coupon code for a single order.</li>
-                <li>When there is still an amount left after your order, than that amount can be used with the same code on a different order.</li>
-              </ul>
-            </div>
+        </div>        {/* Coupon/Voucher Code Section */}
+        <div className="mt-6">
+          <h3 className="font-semibold text-gray-800 mb-2">Do you have a coupon code or voucher code?</h3>
+          <div className="flex">
+            <input
+              type="text"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              placeholder="e.g. FTKJH99T39BZ"
+              className="flex-grow p-2 border border-gray-300 rounded-l"
+            />
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
+              onClick={() => setIsApplyingCoupon(true)}
+            >
+              Apply Code
+            </button>
           </div>
-        )}
+        </div>
 
         <div className="mt-8">
           <div className="flex items-center mb-4">
