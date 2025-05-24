@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-const OrderSummary = ({ tournaments, serviceFee = 10.00 }) => {
+const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProceedToBooking }) => {
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
   
   // Calculate totals
   const calculateSubtotal = () => {
@@ -58,7 +60,34 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00 }) => {
               <span className="text-lg font-bold text-blue-600">${total.toFixed(2)}</span>
             </div>
           </div>
-        </div>
+        </div>        {/* Coupon/Voucher Code Section (only visible on step 2) */}
+        {currentStep === 2 && (
+          <div className="mt-6">
+            <h3 className="font-semibold text-gray-800 mb-2">Do you have a coupon code or voucher code?</h3>
+            <div className="flex">
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                placeholder="e.g. FTKJH99T39BZ"
+                className="flex-grow p-2 border border-gray-300 rounded-l"
+              />
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
+                onClick={() => setIsApplyingCoupon(true)}
+              >
+                Apply Code
+              </button>
+            </div>
+            <div className="text-xs text-gray-500 mt-2">
+              <p>Information:</p>
+              <ul className="list-disc list-inside pl-1">
+                <li>You can use multiple vouchers and/or one coupon code for a single order.</li>
+                <li>When there is still an amount left after your order, than that amount can be used with the same code on a different order.</li>
+              </ul>
+            </div>
+          </div>
+        )}
 
         <div className="mt-8">
           <div className="flex items-center mb-4">
@@ -77,8 +106,9 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00 }) => {
           <button 
             className={`w-full ${termsAgreed ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'} text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center`}
             disabled={!termsAgreed}
+            onClick={currentStep === 1 ? onProceedToBooking : undefined}
           >
-            Proceed to Booking
+            {currentStep === 1 ? 'Proceed to Booking' : 'Proceed to Payment'}
             <i className="fas fa-arrow-right ml-2"></i>
           </button>
           

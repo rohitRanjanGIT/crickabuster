@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import CartHeader from '../components/CartHeader';
 import TournamentGroup from '../components/TournamentGroup';
-import OrderSummary from '../components/orderSummary';
+import OrderSummary from '../components/OrderSummary';
+import BookingForm from '../components/BookingForm';
 
 const AddToCart = () => {
+  const [currentStep, setCurrentStep] = useState(1);
   // Sample data that would normally come from an API or Redux store
   const [cartData, setCartData] = useState({
     tournaments: [
@@ -136,42 +138,63 @@ const AddToCart = () => {
       return newData;
     });
   };
+  // Handle proceeding to next step
+  const handleProceedToBooking = () => {
+    setCurrentStep(2);
+  };
+
+  // Handle going back to cart
+  const handleBackToCart = () => {
+    setCurrentStep(1);
+  };
 
   return (
     <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <CartHeader />
+        <CartHeader currentStep={currentStep} />
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Cart Content */}
-          <div className="lg:w-2/3">
-            {/* Header for Tournament Selections */}
-            <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800">Your Tournament Selections</h2>
-                  <p className="text-gray-500">Review packages for each selected tournament</p>
+          {/* Main Content - Conditionally render cart or booking form */}
+          {currentStep === 1 ? (
+            /* Cart Content */
+            <div className="lg:w-2/3">
+              {/* Header for Tournament Selections */}
+              <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-800">Your Tournament Selections</h2>
+                    <p className="text-gray-500">Review packages for each selected tournament</p>
+                  </div>
+                  <span className="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">
+                    {cartData.tournaments.length} Tournaments
+                  </span>
                 </div>
-                <span className="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">
-                  {cartData.tournaments.length} Tournaments
-                </span>
               </div>
-            </div>
 
-            {/* Tournament groups */}
-            {cartData.tournaments.map(tournament => (              <TournamentGroup
-                key={tournament.id}
-                tournament={tournament}
-                onQuantityChange={(matchId, categoryId, quantity) => 
-                  handleQuantityChange(tournament.id, matchId, categoryId, quantity)}
-                onRemove={(matchId, categoryId) => 
-                  handleRemoveCategory(tournament.id, matchId, categoryId)}
-              />
-            ))}
-          </div>
+              {/* Tournament groups */}
+              {cartData.tournaments.map(tournament => (
+                <TournamentGroup
+                  key={tournament.id}
+                  tournament={tournament}
+                  onQuantityChange={(matchId, categoryId, quantity) => 
+                    handleQuantityChange(tournament.id, matchId, categoryId, quantity)}
+                  onRemove={(matchId, categoryId) => 
+                    handleRemoveCategory(tournament.id, matchId, categoryId)}
+                />
+              ))}
+            </div>
+          ) : (
+            /* Booking Form */
+            <BookingForm cartData={cartData} onBack={handleBackToCart} />
+          )}
 
           {/* Order Summary */}
-          <OrderSummary tournaments={cartData.tournaments} serviceFee={cartData.serviceFee} />
+          <OrderSummary 
+            tournaments={cartData.tournaments} 
+            serviceFee={cartData.serviceFee} 
+            currentStep={currentStep} 
+            onProceedToBooking={handleProceedToBooking} 
+          />
         </div>
       </div>
     </div>
