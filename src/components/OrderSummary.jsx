@@ -4,7 +4,15 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [couponCode, setCouponCode] = useState('');
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
-  
+  const [appliedCoupons, setAppliedCoupons] = useState([]);
+  const [discount, setDiscount] = useState(0);
+
+  const validCoupons = {
+    sale10: 10,
+    sale20: 20,
+    sale30: 30,
+  };
+
   // Calculate totals
   const calculateSubtotal = () => {
     let subtotal = 0;
@@ -18,8 +26,38 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
     return subtotal;
   };
 
+  const handleApplyCoupon = () => {
+    if (validCoupons[couponCode]) {
+      const discountPercentage = validCoupons[couponCode];
+
+      // Check if a coupon of the same type is already applied
+      const existingCouponType = appliedCoupons.find((appliedCoupon) => validCoupons[appliedCoupon] === discountPercentage);
+
+      if (existingCouponType || appliedCoupons.length === 0) {
+        if (!appliedCoupons.includes(couponCode)) {
+          setDiscount((prevDiscount) => prevDiscount + (calculateSubtotal() * discountPercentage) / 100);
+          setAppliedCoupons([...appliedCoupons, couponCode]);
+          setCouponCode('');
+        } else {
+          alert('This coupon has already been applied.');
+        }
+      } else {
+        alert('You cannot combine different types of percentage discount coupons.');
+      }
+    } else {
+      alert('Invalid coupon code.');
+    }
+    setIsApplyingCoupon(false);
+  };
+
+  const handleRemoveCoupon = (coupon) => {
+    const discountPercentage = validCoupons[coupon];
+    setDiscount((prevDiscount) => prevDiscount - (calculateSubtotal() * discountPercentage) / 100);
+    setAppliedCoupons(appliedCoupons.filter((appliedCoupon) => appliedCoupon !== coupon));
+  };
+
   const subtotal = calculateSubtotal();
-  const total = subtotal + serviceFee;
+  const total = subtotal + serviceFee - discount;
 
   return (
     <div className="lg:w-1/3">
@@ -53,6 +91,10 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
             <span className="text-gray-600">Service Fee</span>
             <span className="font-medium text-gray-800">${serviceFee.toFixed(2)}</span>
           </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Discount</span>
+            <span className="font-medium text-gray-800">-${discount.toFixed(2)}</span>
+          </div>
           
           <div className="border-t border-gray-200 pt-3 mt-3">
             <div className="flex justify-between">
@@ -60,7 +102,9 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
               <span className="text-lg font-bold text-blue-600">${total.toFixed(2)}</span>
             </div>
           </div>
-        </div>        {/* Coupon/Voucher Code Section */}
+        </div>
+
+        {/* Coupon/Voucher Code Section (visible on all steps) */}
         <div className="mt-6">
           <h3 className="font-semibold text-gray-800 mb-2">Do you have a coupon code or voucher code?</h3>
           <div className="flex">
@@ -68,16 +112,41 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
               type="text"
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value)}
-              placeholder="e.g. FTKJH99T39BZ"
+              placeholder="e.g. sale10"
               className="flex-grow p-2 border border-gray-300 rounded-l"
             />
             <button
               className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700"
-              onClick={() => setIsApplyingCoupon(true)}
+              onClick={handleApplyCoupon}
             >
               Apply Code
             </button>
           </div>
+          <div className="text-xs text-gray-500 mt-2">
+            <p>Information:</p>
+            <ul className="list-disc list-inside pl-1">
+              <li>You can use multiple vouchers and/or one coupon code for a single order.</li>
+              <li>When there is still an amount left after your order, that amount can be used with the same code on a different order.</li>
+            </ul>
+          </div>
+          {appliedCoupons.length > 0 && (
+            <div className="mt-4">
+              <h4 className="font-semibold text-gray-800 mb-2">Applied Coupons:</h4>
+              <ul className="list-disc list-inside pl-1">
+                {appliedCoupons.map((coupon) => (
+                  <li key={coupon} className="flex justify-between items-center">
+                    <span>{coupon} - {validCoupons[coupon]}% off</span>
+                    <button
+                      className="text-red-600 hover:underline text-sm"
+                      onClick={() => handleRemoveCoupon(coupon)}
+                    >
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="mt-8">
