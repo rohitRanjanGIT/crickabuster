@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProceedToBooking }) => {
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -162,8 +163,7 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
               I agree to the <a href="#" className="text-blue-600 hover:underline">Terms & Conditions</a>
             </label>
           </div>
-          
-          <button 
+            <button 
             className={`w-full ${termsAgreed ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'} text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center`}
             disabled={!termsAgreed}
             onClick={currentStep === 1 ? onProceedToBooking : undefined}
@@ -171,6 +171,26 @@ const OrderSummary = ({ tournaments, serviceFee = 10.00, currentStep = 1, onProc
             {currentStep === 1 ? 'Proceed to Booking' : 'Proceed to Payment'}
             <i className="fas fa-arrow-right ml-2"></i>
           </button>
+          
+          {/* Payment simulation buttons - only shown on step 2 */}
+          {currentStep === 2 && (
+            <div className="mt-4 border-t border-gray-200 pt-4">
+              <p className="text-sm text-gray-600 mb-3 text-center font-medium">For demo purposes:</p>              <div className="flex space-x-2">
+                <Link 
+                  to="/payment-success" 
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-2 px-4 rounded-lg flex items-center justify-center transition duration-200"
+                >
+                  <i className="fas fa-check-circle mr-1"></i> Simulate Success
+                </Link>
+                <Link 
+                  to="/payment-failed"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs py-2 px-4 rounded-lg flex items-center justify-center transition duration-200"
+                >
+                  <i className="fas fa-times-circle mr-1"></i> Simulate Failure
+                </Link>
+              </div>
+            </div>
+          )}
           
           <p className="text-xs text-gray-500 mt-3 text-center">
             Your card will not be charged until you complete the booking process

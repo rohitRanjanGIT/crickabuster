@@ -6,14 +6,15 @@ function Profile() {
   // Only 'overview' and 'all' tabs are available now
   const [activeTab, setActiveTab] = useState('overview');
   const [isEditing, setIsEditing] = useState(false);
-  
-  // Mock user data that would normally come from an API/Redux
+    // Mock user data that would normally come from an API/Redux
   const [userData, setUserData] = useState({
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
     phone: '+91 9876543210',
     nationality: 'Indian',
+    designation: 'Software Engineer',
+    dob: '1990-05-15',
     addressLine1: '123 Cricket Lane',
     addressLine2: 'Stadium District',
     city: 'Mumbai',
@@ -278,8 +279,7 @@ Thank you for booking with CrickBuster!
                       className="w-full p-2 border border-gray-300 rounded"
                       required
                     />
-                  </div>
-                  <div>
+                  </div>                  <div>
                     <label htmlFor="nationality" className="block text-sm font-medium text-gray-700 mb-1">
                       Nationality
                     </label>
@@ -288,6 +288,32 @@ Thank you for booking with CrickBuster!
                       id="nationality" 
                       name="nationality"
                       value={userData.nationality}
+                      onChange={handleUserDataChange}
+                      className="w-full p-2 border border-gray-300 rounded"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="designation" className="block text-sm font-medium text-gray-700 mb-1">
+                      Designation
+                    </label>
+                    <input 
+                      type="text" 
+                      id="designation" 
+                      name="designation"
+                      value={userData.designation}
+                      onChange={handleUserDataChange}
+                      className="w-full p-2 border border-gray-300 rounded"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="dob" className="block text-sm font-medium text-gray-700 mb-1">
+                      Date of Birth
+                    </label>
+                    <input 
+                      type="date" 
+                      id="dob" 
+                      name="dob"
+                      value={userData.dob}
                       onChange={handleUserDataChange}
                       className="w-full p-2 border border-gray-300 rounded"
                     />
@@ -405,10 +431,17 @@ Thank you for booking with CrickBuster!
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Phone Number</h3>
                       <p className="mt-1">{userData.phone}</p>
-                    </div>
-                    <div>
+                    </div>                    <div>
                       <h3 className="text-sm font-medium text-gray-500">Nationality</h3>
                       <p className="mt-1">{userData.nationality}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Designation</h3>
+                      <p className="mt-1">{userData.designation}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">Date of Birth</h3>
+                      <p className="mt-1">{new Date(userData.dob).toLocaleDateString()}</p>
                     </div>
 
                     {/* Address Information */}
