@@ -7,6 +7,7 @@ import AddToCart from './pages/AddToCart';
 import Profile from './pages/Profile';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFailed from './pages/PaymentFailed';
+import News from './pages/News';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route path="/cart" element={<AddToCart />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
-          <Route path="/" element={<AddToCart />} /> {/* Default route set to AddToCart */}
+          <Route path="/news" element={<News />} />
+          <Route path="/" element={<News />} /> {/* Default route set to News */}
         </Routes>
       </div>
     </Router>

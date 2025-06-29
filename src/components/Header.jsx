@@ -12,6 +12,14 @@ function Header() {
         <nav>          <ul className="flex space-x-6">
             <li>
               <Link 
+                to="/news" 
+                className={`hover:text-blue-200 flex items-center ${path === '/news' ? 'text-blue-200 font-medium' : ''}`}
+              >
+                <i className="fas fa-newspaper mr-1"></i> News
+              </Link>
+            </li>
+            <li>
+              <Link 
                 to="/profile" 
                 className={`hover:text-blue-200 flex items-center ${path === '/profile' ? 'text-blue-200 font-medium' : ''}`}
               >
