@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { getFeaturedNews, getRegularNews, getAllNews } from '../data/newsData'
 
 export default function News() {
@@ -73,7 +74,7 @@ export default function News() {
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Featured News Carousel - Takes 3/4 of width */}
                 <div className="lg:col-span-3">
-                  <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden h-[680px]">
+                  <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden h-[683px]">
                     <div className="relative h-full">
                       <img 
                         src={currentFeatured.image} 
@@ -119,15 +120,15 @@ export default function News() {
                         <p className="text-lg opacity-90 mb-6 leading-relaxed max-w-3xl">
                           {currentFeatured.excerpt}
                         </p>
-                        <a 
-                          href={currentFeatured.link}
+                        <Link 
+                          to={`/news/${currentFeatured.id}`}
                           className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                         >
                           Read Full Story
                           <svg className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
 
                       {/* Carousel Indicators */}
@@ -173,12 +174,12 @@ export default function News() {
                           <h3 className="text-sm font-bold text-gray-800 line-clamp-2 mb-2">
                             {news.title}
                           </h3>
-                          <a 
-                            href={news.link} 
+                          <Link 
+                            to={`/news/${news.id}`} 
                             className="text-xs text-blue-600 hover:text-blue-800 font-medium"
                           >
                             Read More →
-                          </a>
+                          </Link>
                         </div>
                       </article>
                     ))}
@@ -219,15 +220,15 @@ export default function News() {
                         {news.excerpt}
                       </p>
                       
-                      <a 
-                        href={news.link} 
+                      <Link 
+                        to={`/news/${news.id}`} 
                         className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
                       >
                         Read Story
                         <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
-                      </a>
+                      </Link>
                     </div>
                   </article>
                 ))}
@@ -267,15 +268,15 @@ export default function News() {
                       {news.excerpt}
                     </p>
                     
-                    <a 
-                      href={news.link} 
+                    <Link 
+                      to={`/news/${news.id}`} 
                       className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
                     >
                       Read Story
                       <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
-                    </a>
+                    </Link>
                   </div>
                 </article>
               ))}

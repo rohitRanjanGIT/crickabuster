@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFailed from './pages/PaymentFailed';
 import News from './pages/News';
+import NewsPreview from './pages/NewsPreview';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsPreview />} />
           <Route path="/" element={<News />} /> {/* Default route set to News */}
         </Routes>
       </div>
