@@ -9,6 +9,9 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentFailed from './pages/PaymentFailed';
 import News from './pages/News';
 import NewsPreview from './pages/NewsPreview';
+import AcceptUserMailTemplate from './mail/AcceptUserMainTemplate';
+import RejectUserMailTemplate from './mail/RejectUserMailTemplate';
+import AdminMailTemplate from './mail/AdminMailTemplate';
 
 function App() {
   return (
@@ -16,17 +19,21 @@ function App() {
       <Header />
       <div className="mt-4">
         <Routes>
+          <Route path="/" element={<News />} /> {/* Default route set to News */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<AddToCart />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="/paymentfailed" element={<PaymentFailed />} />
+          <Route path="/adminMail" element={<AdminMailTemplate />} />
+          <Route path="/acceptusermail" element={<AcceptUserMailTemplate />} />
+          <Route path="/rejectusermail" element={<RejectUserMailTemplate />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:id" element={<NewsPreview />} />
-          <Route path="/" element={<News />} /> {/* Default route set to News */}
         </Routes>
       </div>
     </Router>
   );
 }
 
-export default App
+export default App;
