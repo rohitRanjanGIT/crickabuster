@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<News />} /> {/* Default route set to News */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<AddToCart />} />
-          <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/paymentfailed" element={<PaymentFailed />} />
           <Route path="/adminMail" element={<AdminMailTemplate />} />
           <Route path="/acceptusermail" element={<AcceptUserMailTemplate />} />
